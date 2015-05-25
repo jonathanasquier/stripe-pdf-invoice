@@ -10,7 +10,7 @@
 
 ```````
 var fs = require('fs');
-var pdfInvoice = require('./stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
+var pdfInvoice = require('stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
 var invoiceId = 'STRIPE_INVOICE_ID';
 
 pdfInvoice.generate(invoiceId, {/*options...*/}, function(error, pdfname, stream){
@@ -23,7 +23,7 @@ pdfInvoice.generate(invoiceId, {/*options...*/}, function(error, pdfname, stream
 ```````
 var express = require('express');
 var app = express();
-var pdfInvoice = require('./stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
+var pdfInvoice = require('stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
 var invoiceId = 'STRIPE_INVOICE_ID';
 
 app.get('/', function(req, res) {
