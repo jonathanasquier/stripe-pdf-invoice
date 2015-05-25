@@ -18,6 +18,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/"
+     "url": "git@github.com:jonathanasquier/stripe-pdf-invoice.git"
+ },
+ "bugs": {
+    "url": "https://github.com/jonathanasquier/stripe-pdf-invoice/issues"
   }
 }
