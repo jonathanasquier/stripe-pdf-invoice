@@ -4,11 +4,17 @@
 
 ![ScreenShot](/invoice.jpg)
 
+## Install ##
+
+```
+    npm install stripe-pdf-invoice
+```
+
 ## Usage ##
 
 ### Generate invoice in a file ####
 
-```````
+```
 var fs = require('fs');
 var pdfInvoice = require('stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
 var invoiceId = 'STRIPE_INVOICE_ID';
@@ -16,11 +22,11 @@ var invoiceId = 'STRIPE_INVOICE_ID';
 pdfInvoice.generate(invoiceId, {/*options...*/}, function(error, pdfname, stream){
     stream.pipe(fs.createWriteStream(pdfname));
 });
-```````
+```
 
 ### Use with Express ####
 
-```````
+```
 var express = require('express');
 var app = express();
 var pdfInvoice = require('stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
@@ -34,11 +40,11 @@ app.get('/', function(req, res) {
         stream.pipe(res);
     });
 });
-```````
+```
 
 ### Options ####
 
-```````
+```
 number (Number)
 currency_position_before (Bool)
 currency_symbol (String)
@@ -81,7 +87,7 @@ label_invoice_number (String)
 label_reference_number (String)
 label_invoice_due_date (String)
 
-```````
+```
 
 ## TODO ##
 
