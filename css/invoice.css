@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'Lato-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Lato-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Envy-Code';
+  font-style: normal;
+  font-weight: 400;
+  src: url(../fonts/Envy-Code-R.ttf) format('truetype');
+}
+
+layout {
+    font-family: Lato-Regular;
+    color: #4d4d4d;
+    line-height:1.5;
+    font-size: 15px;
+}
+
+.invoice-body {
+    display:block;
+    min-height:840px;
+}
+
+.footer {
+    display:block;
+    height:110px;
+}
+
+.white-big {
+    padding-bottom : 100px;
+}
+
+.white-small {
+    padding-bottom : 30px;
+}
+
+.invoice {
+    font-size: 30px;
+}
+
+.upper {
+    text-transform: uppercase;
+}
+
+.date {
+    padding-top: 15px;
+}
+
+.num {
+    font-family: 'Envy-Code';
+}
+
+.total {
+    text-align : center;
+}
+
+.total h1 {
+    font-size : 40px;
+}
+
+.total-line {
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.component-title {
+    font-size: 13px;
+    color: #BDC3C7;
+    text-transform: uppercase;
+}
+
+.address {
+    padding-top : 15px;
+    font-size : 13px;
+}

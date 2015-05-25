@@ -1,0 +1,23 @@
+{
+  "name": "stripe-pdf-invoice",
+  "version": "1.0.0",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^1.0.0",
+    "image-size": "^0.3.5",
+    "jade": "^1.9.2",
+    "moment": "^2.10.3",
+    "stripe": "^3.3.4",
+    "underscore": "^1.8.3",
+    "wkhtmltopdf": "^0.1.5"
+},
+  "description": "Stripe PDF invoice generator",
+  "author": {
+    "name": "Jonathan Asquier",
+    "email": "jonathan.asquier@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/"
+  }
+}
