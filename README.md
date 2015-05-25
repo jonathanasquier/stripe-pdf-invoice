@@ -40,6 +40,7 @@ currency_position_before (Bool)
 currency_symbol (String)
 date_format (String)
 due_days (Number)
+color (Number)
 
 company_name (String)
 company_logo (String)
