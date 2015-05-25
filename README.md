@@ -1,5 +1,9 @@
 # Stripe PDF Invoice #
 
+## Render ##
+
+![ScreenShot](/invoice.jpg)
+
 ## Usage ##
 
 ### Generate invoice in a file ####
