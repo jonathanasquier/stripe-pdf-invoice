@@ -67,7 +67,7 @@ StripePdfInvoice.prototype.generate = function(invoiceId, data, callback) {
                 invoice.due_date_formated = moment.unix(invoice.date).add(invoice.due_days, 'day').locale(invoice.language || 'en').format(invoice.date_format);
             else
                 invoice.due_date_formated = invoice.date_formated;
-            invoice.pdf_name = invoice.pdf_name ? (invoice.pdf_name + '.pdf') : ('INVOICE_' + moment.unix(invoice.date).format('YYYY-mm-DD') + '_' + invoice.number + '.pdf');
+            invoice.pdf_name = invoice.pdf_name ? (invoice.pdf_name + '.pdf') : ('INVOICE_' + moment.unix(invoice.date).format('YYYY-MM-DD') + '_#' + invoice.number + '.pdf');
 
             invoice.company_logo = invoice.company_logo ? path.resolve(invoice.company_logo.toString()) : null;
             if(invoice.company_logo && fs.existsSync(invoice.company_logo))
