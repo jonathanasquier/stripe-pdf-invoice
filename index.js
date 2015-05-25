@@ -77,7 +77,6 @@ StripePdfInvoice.prototype.generate = function(invoiceId, data, callback) {
             }
             else
                 invoice.company_logo = null;
-            console.log(invoice.company_logo, invoice.logo_height)
             _.each(invoice.lines.data, function(line){
                 if(line.type == 'subscription')
                     line.price = (line.plan.amount/100).toFixed(2);
