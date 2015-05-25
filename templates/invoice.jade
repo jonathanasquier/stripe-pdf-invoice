@@ -168,12 +168,13 @@ html.no-js
                         .row.white-small
                             .columns
                                 | #{invoice.due_date_formated}
-                        .row
-                            .columns.component-title
-                                | #{invoice.label_reference_number}
-                        .row
-                            .columns.num
-                                | #{invoice.receipt_number}
+                        if invoice.receipt_number
+                            .row
+                                .columns.component-title
+                                    | #{invoice.label_reference_number}
+                            .row
+                                .columns.num
+                                    | #{invoice.receipt_number}
                     .small-3.columns
                         if invoice.company_siret
                             .row
