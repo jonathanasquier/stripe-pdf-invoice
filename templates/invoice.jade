@@ -25,15 +25,15 @@ html.no-js
         .row.invoice-body
             .columns
                 .row.white-small 
-                    .columns.small-5
+                    .columns.small-10
                         if invoice.company_logo
                             .row
-                                .columns.white-small
+                                .columns.small-5.white-small
                                     .logo
                         .row
                           .columns.invoice.upper
                             | #{invoice.label_invoice} ##{invoice.number}
-                    .small-offset-1.small-2.columns
+                    .small-2.columns
                       .row
                           .columns.date
                               | #{invoice.date_formated}
