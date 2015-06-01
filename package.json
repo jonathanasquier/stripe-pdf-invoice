@@ -1,6 +1,6 @@
 {
   "name": "stripe-pdf-invoice",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "app.js",
   "dependencies": {
     "async": "^1.0.0",
