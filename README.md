@@ -10,7 +10,7 @@
     npm install stripe-pdf-invoice
 ```
 
-    Install the [wkhtmltopdf exec](http://wkhtmltopdf.org/downloads.html)
+Install the [wkhtmltopdf exec](http://wkhtmltopdf.org/downloads.html)
 
 ## Usage ##
 
