@@ -1,4 +1,4 @@
-const Stripe = require('./stripe');
+const Stripe = require('stripe');
 const pug = require('pug');
 const wkhtmltopdf = require('wkhtmltopdf');
 const moment = require('moment');
