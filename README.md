@@ -1,47 +1,105 @@
-# Stripe PDF Invoice #
+# Stripe PDF Invoice 2.0.0 #
 
 ## Render ##
 
 ![ScreenShot](/invoice.jpg)
 
+## NB ##
+
+  - Breaking changes
+  - Support for async/await is needed (Node 7.6)
+
 ## Install ##
+Install the [wkhtmltopdf executable](http://wkhtmltopdf.org/downloads.html)
 
 ```
     npm install stripe-pdf-invoice
 ```
 
-Install the [wkhtmltopdf exec](http://wkhtmltopdf.org/downloads.html)
-
 ## Usage ##
 
 ### Generate invoice in a file ####
 
-```
-var fs = require('fs');
-var pdfInvoice = require('stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
-var invoiceId = 'STRIPE_INVOICE_ID';
+```js
+const invoice_id = 'invoice_id';
+const stripe_key = 'stripe_key';
 
-pdfInvoice.generate(invoiceId, {/*options...*/}, function(error, pdfname, stream){
-    stream.pipe(fs.createWriteStream(pdfname));
+const fs = require('fs');
+const path = require('path');
+
+const stripepdfinvoice = require('./index')(stripe_key, {
+  company_name: 'Trusk',
+  company_address: '14 rue Charles V',
+  company_zipcode: '75004',
+  company_city: 'Paris',
+  company_country: 'France',
+  company_siret: '146-458-246',
+  company_vat_number: '568-3587-345',
+  company_logo: path.resolve("./batman.jpg"),
+  color: '#2C75FF',
+});
+
+stripepdfinvoice(invoice_id, {
+  client_company_name: 'My Company',
+  client_company_address: '1 infinite Loop',
+  client_company_zipcode: '95014',
+  client_company_city: 'Cupertino, CA',
+  client_company_country: 'USA',
+  receipt_number: 'ER56T67'
+})
+.then(stream => {
+  stream.pipe(fs.createWriteStream('./invoice.pdf'));
+  stream.on('end', () => {
+    console.log('done');
+  });
+  stream.on('error', (error) => {
+    console.log(error);
+  });
 });
 ```
 
 ### Use with Express ####
 
-```
-var express = require('express');
-var app = express();
-var pdfInvoice = require('stripe-pdf-invoice')('STRIPE_KEY', {/*options...*/});
-var invoiceId = 'STRIPE_INVOICE_ID';
+```js
+const invoice_id = 'invoice_id';
+const stripe_key = 'stripe_key';
+
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+
+const app = express();
+
+const stripepdfinvoice = require('./index')(stripe_key, {
+  company_name: 'Trusk',
+  company_address: '14 rue Charles V',
+  company_zipcode: '75004',
+  company_city: 'Paris',
+  company_country: 'France',
+  company_siret: '146-458-246',
+  company_vat_number: '568-3587-345',
+  company_logo: path.resolve("./batman.jpg"),
+  color: '#2C75FF',
+});
 
 app.get('/', function(req, res) {
-    res.set('content-type', 'application/pdf; charset=utf-8');
-    pdfInvoice.generate(invoiceId, {/*options...*/}, function(error, pdfname, stream){
-        //Force download
-        //res.set('Content-Disposition', 'attachment; filename=' + pdfname + '.pdf');
-        stream.pipe(res);
-    });
+  res.set('content-type', 'application/pdf; charset=utf-8');
+  stripepdfinvoice(invoice_id, {
+    client_company_name: 'My Company',
+    client_company_address: '1 infinite Loop',
+    client_company_zipcode: '95014',
+    client_company_city: 'Cupertino, CA',
+    client_company_country: 'USA',
+    receipt_number: 'ER56T67'
+  })
+  .then(stream => {
+    //Force download
+    //res.set('Content-Disposition', 'attachment; filename=invoice.pdf');
+    stream.pipe(res);
+  });
 });
+
+app.listen(3000);
 ```
 
 ### Options ####
@@ -88,9 +146,4 @@ label_company_vat_number (String)
 label_invoice_number (String)
 label_reference_number (String)
 label_invoice_due_date (String)
-
 ```
-
-## TODO ##
-
-    Remote logo and logo type test (mmmagic)
