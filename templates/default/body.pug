@@ -1,0 +1,218 @@
+-
+  date_formatted = moment.unix(date).locale(language).format(date_format);
+  due_date_formatted = (due_days && !isNaN(due_days)) ? moment.unix(date).add(due_days, 'day').locale(language).format(date_format) : date_formatted;
+
+  company_logo_path = company_logo ? path.resolve(company_logo.toString()) : null;
+  if(company_logo_path && fs.existsSync(company_logo_path)) {
+    dimensions = sizeOf(company_logo);
+    logo_height = dimensions.height*(300/dimensions.width);
+  }
+
+  total = (total/100).toFixed(2);
+  subtotal = (subtotal/100).toFixed(2);
+  tax_percent = tax_percent || 0;
+
+  lines.data.forEach(line => {
+    line.price = (line.type == 'subscription') ? (line.plan.amount/100).toFixed(2) : (line.amount/100).toFixed(2);
+    line.amount = (line.amount/100).toFixed(2);
+    if(!line.description && line.type == 'subscription') {
+      line.description = ((line.quantity > 1) ? line.quantity + ' * ' : '') + line.plan.name;
+      if(line.period) {
+        line.period.start = moment.unix(line.period.start).locale(language).format(date_format);
+        line.period.end = moment.unix(line.period.end).locale(language).format(date_format);
+        line.description += ' ' + line.period.start + ' - ' + line.period.end;
+      }
+    }
+  });
+doctype
+html.no-js
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    title
+    meta(name='description', content='')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    each sheet in css
+      link(rel='stylesheet', href=sheet, type='text/css')
+    style
+      if color
+        | .total h1 {
+        |   color: #{color};
+        | }
+      if company_logo
+        | .logo {
+        |   background-image: url(#{company_logo});
+        |   width: 300px;
+        |   background-repeat:  no-repeat;
+        |   background-size: 300px;
+        |   height: #{logo_height}px;
+        | }
+  body.layout
+    .row.invoice-body
+      .columns
+        .row.white-small
+          .columns.small-10
+            if company_logo
+              .row
+                .columns.small-5.white-small
+                  .logo
+            .row
+              .columns.upper.invoice
+                | #{label_invoice} ##{number}
+          .small-2.columns
+            .row
+              .columns.date
+                | #{date_formatted}
+        .row.white-small
+          .columns.end
+            .row
+              .columns.component-title
+                | #{label_invoice_by}
+            .row
+              .columns
+                | #{company_name}
+        .row.white-small
+          .small-4.columns
+            .row
+              .columns.component-title
+                | #{label_invoice_to}
+            .row
+              .columns
+                | #{client_company_name}
+            .row.address
+              .columns
+                .row
+                  .columns
+                    | #{client_company_address}
+                .row
+                  .columns
+                    | #{client_company_zipcode} #{client_company_city}
+                .row
+                  .columns
+                    | #{client_company_country}
+          .small-offset-4.small-4.columns.total
+            .row
+              .columns.num
+              h1
+                if currency_position_before
+                  | #{currency_symbol}
+                | #{total}
+                if !currency_position_before
+                  | #{currency_symbol}
+            .row
+              .columns
+              | #{label_due_on} #{due_date_formatted}
+        if invoice_for
+          .row.white-small
+            .columns
+              .row
+                .small-12.columns.component-title
+                  | #{label_invoice_for}
+              .row
+                .small-12.columns
+                  | #{invoice_for}
+        .row.white-small
+          .columns
+            .row
+              .small-7.columns.component-title #{label_description}
+              .small-1.columns.component-title #{label_unit}
+              .small-2.columns.component-title #{label_price}
+              .small-2.columns.component-title #{label_amount}
+              each line in lines.data
+                .row
+                  .small-7.columns #{line.description || 'Item description'}
+                  .small-1.columns #{line.quantity}
+                  .small-2.columns
+                    if currency_position_before
+                      | #{currency_symbol}
+                    | #{line.price}
+                    if !currency_position_before
+                      | #{currency_symbol}
+                  .small-2.columns
+                    if currency_position_before
+                      | #{currency_symbol}
+                    | #{line.amount}
+                    if !currency_position_before
+                      | #{currency_symbol}
+        .row
+          .small-10.columns.upper #{label_subtotal}
+          .small-2.columns.num
+            if currency_position_before
+              | #{currency_symbol}
+            | #{subtotal}
+            if !currency_position_before
+              | #{currency_symbol}
+        .row
+          .small-10.columns.upper #{label_vat}
+          .small-2.columns.num #{tax_percent}%
+        .row.total-line.upper
+          .small-10.columns #{label_total}
+          .small-2.columns.num
+            if currency_position_before
+              | #{currency_symbol}
+            | #{total}
+            if !currency_position_before
+              | #{currency_symbol}
+    .row.footer
+      .columns
+        .row
+          .small-3.columns
+            .row
+              .columns.component-title
+                | #{label_invoice_by}
+            .row
+              .columns
+                | #{company_name}
+            .row.address
+              .columns
+                .row
+                  .columns
+                    | #{company_address}
+                .row
+                  .columns
+                    | #{company_zipcode} #{company_city}
+                .row
+                  .columns
+                    | #{company_country}
+          .small-3.columns
+            .row
+              .columns.component-title
+                | #{label_invoice_date}
+            .row.white-small
+              .columns
+                | #{date_formatted}
+            .row
+              .columns.component-title
+                | #{label_invoice_number}
+            .row
+              .columns.num
+                | ##{number}
+          .small-3.columns
+            .row
+              .columns.component-title
+                | #{label_invoice_due_date}
+            .row.white-small
+              .columns
+                | #{due_date_formatted}
+            if receipt_number
+              .row
+                .columns.component-title
+                  | #{label_reference_number}
+              .row
+                .columns.num
+                  | #{receipt_number}
+          .small-3.columns
+            if company_siret
+              .row
+                .columns.component-title
+                  | #{label_company_siret}
+              .row.white-small
+                .columns.num
+                  | #{company_siret}
+            if company_vat_number
+              .row
+                .columns.component-title
+                  | #{label_company_vat_number}
+              .row
+                .columns.num
+                  | #{company_vat_number}

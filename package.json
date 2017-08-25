@@ -1,17 +1,15 @@
 {
   "name": "stripe-pdf-invoice",
-  "version": "1.0.8",
-  "main": "app.js",
+  "version": "2.0.0",
+  "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "async": "^1.0.0",
-    "image-size": "^0.3.5",
-    "jade": "^1.9.2",
-    "moment": "^2.10.3",
-    "request": "^2.57.0",
-    "stripe": "^3.3.4",
-    "underscore": "^1.8.3",
-    "wkhtmltopdf": "^0.1.5"
+    "bluebird": "^3.5.0",
+    "image-size": "^0.6.1",
+    "moment": "^2.18.1",
+    "pug": "^2.0.0-beta9",
+    "stripe": "^4.24.0",
+    "wkhtmltopdf": "^0.3.3"
   },
   "description": "Stripe PDF invoice generator",
   "author": {
