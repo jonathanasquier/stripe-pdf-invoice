@@ -2,13 +2,8 @@
   date_formatted = moment.unix(date).locale(language).format(date_format);
   due_date_formatted = (due_days && !isNaN(due_days)) ? moment.unix(date).add(due_days, 'day').locale(language).format(date_format) : date_formatted;
 
-  company_logo_path = company_logo ? path.resolve(company_logo.toString()) : null;
-  if(company_logo_path && fs.existsSync(company_logo_path)) {
-    dimensions = sizeOf(company_logo);
-    logo_height = dimensions.height*(300/dimensions.width);
-  }
-
   total = (total/100).toFixed(2);
+  tax_total_formatted = (tax_total/100).toFixed(2);
   subtotal = (subtotal/100).toFixed(2);
   tax_percent = tax_percent || 0;
 
@@ -42,10 +37,10 @@ html.no-js
       if company_logo
         | .logo {
         |   background-image: url("#{company_logo}");
-        |   width: 300px;
+        |   width: 160px;
         |   background-repeat:  no-repeat;
-        |   background-size: 300px;
-        |   height: #{logo_height}px;
+        |   background-size: 170px;
+        |   height: 150px;
         | }
   body.layout
     .row.invoice-body
@@ -57,12 +52,12 @@ html.no-js
                 .columns.small-5.white-small
                   .logo
             .row
-              .columns.upper.invoice
-                | #{label_invoice} ##{number}
+              .columns.invoice
+                | #{label_invoice}
           .small-2.columns
             .row
               .columns.date
-                | #{date_formatted}
+                | 
         .row.white-small
           .columns.end
             .row
@@ -76,9 +71,6 @@ html.no-js
             .row
               .columns.component-title
                 | #{label_invoice_to}
-            .row
-              .columns
-                | #{client_company_name}
             .row.address
               .columns
                 .row
@@ -99,9 +91,6 @@ html.no-js
                 | #{total}
                 if !currency_position_before
                   | #{currency_symbol}
-            .row
-              .columns
-              | #{label_due_on} #{due_date_formatted}
         if invoice_for
           .row.white-small
             .columns
@@ -135,16 +124,19 @@ html.no-js
                     if !currency_position_before
                       | #{currency_symbol}
         .row
-          .small-10.columns.upper #{label_subtotal}
+          .small-10.columns #{label_subtotal}
           .small-2.columns.num
             if currency_position_before
               | #{currency_symbol}
-            | #{subtotal}
+            if taxed_transaction
+              | #{tax_adjusted_subtotal}
+            else
+              | #{subtotal}
             if !currency_position_before
               | #{currency_symbol}
         .row
-          .small-10.columns.upper #{label_vat}
-          .small-2.columns.num #{tax_percent}%
+          .small-10.columns #{label_vat}
+          .small-2.columns.num #{currency_symbol}#{tax_total_formatted}
         .row.total-line.upper
           .small-10.columns #{label_total}
           .small-2.columns.num
@@ -170,7 +162,7 @@ html.no-js
                     | #{company_address}
                 .row
                   .columns
-                    | #{company_zipcode} #{company_city}
+                    | #{company_state} #{company_zipcode} #{company_city}
                 .row
                   .columns
                     | #{company_country}
@@ -186,14 +178,8 @@ html.no-js
                 | #{label_invoice_number}
             .row
               .columns.num
-                | ##{number}
+                | #{id}
           .small-3.columns
-            .row
-              .columns.component-title
-                | #{label_invoice_due_date}
-            .row.white-small
-              .columns
-                | #{due_date_formatted}
             if receipt_number
               .row
                 .columns.component-title

@@ -13,7 +13,7 @@
 }
 
 .layout {
-  font-family: Lato-Regular;
+  font-family: 'Lato-Regular';
   color: #4d4d4d;
   line-height:1.5;
   font-size: 15px;
@@ -50,7 +50,7 @@
 }
 
 .num {
-  font-family: 'Envy-Code';
+  font-family: 'Lato-Regular';
 }
 
 .total {
@@ -62,17 +62,17 @@
 }
 
 .total-line {
-  font-weight: bold;
-  font-size: 17px;
+  font-weight: 900;
+  font-size: 18px;
 }
 
 .component-title {
-  font-size: 13px;
+  font-size: 15px;
   color: #BDC3C7;
   text-transform: uppercase;
 }
 
 .address {
   padding-top: 15px;
-  font-size: 13px;
+  font-size: 15px;
 }
